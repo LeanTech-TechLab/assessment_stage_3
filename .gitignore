@@ -1,8 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # System Files
-/src/environments/
-/env.json
 .DS_Store
 Thumbs.db
 
