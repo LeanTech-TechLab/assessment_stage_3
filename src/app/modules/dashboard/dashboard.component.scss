@@ -1,0 +1,17 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  .dashboard__form{
+
+  }
+  .dashboard__container{
+    display: flex;
+    flex-direction: row;
+  }
+  .dashboard__table {
+    flex: 50;
+  }
+  .dashboard__favorites {
+    flex: 50;
+  }
+}

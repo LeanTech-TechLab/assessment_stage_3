@@ -1,0 +1,21 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div class="toolbar__">
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <span class="example-fill-remaining-space"></span>
+  <div class="username-container" [matMenuTriggerFor]="menu">
+    <span class="username">Username</span>
+  </div>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item [routerLink]="['/edit-profile']">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Edit Profile</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

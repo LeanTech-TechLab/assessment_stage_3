@@ -1,0 +1,14 @@
+.form {
+  .form__show-information {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+  .form__poster {
+    width: 10%;
+  }
+  .form__image-poster {
+    width: 100%;
+  }
+}

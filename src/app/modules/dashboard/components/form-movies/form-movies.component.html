@@ -1,0 +1,25 @@
+<div class="form" [formGroup]="movieForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option *ngFor="let type of showType" [value]="type">{{type | titlecase}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="form__input" appearance="outline">
+    <mat-label>{{'Buscar ' | inputLabel: getType.value}}</mat-label>
+    <input type="text" matInput formControlName="name" />
+  </mat-form-field>
+  <mat-form-field class="form__input" appearance="outline">
+    <mat-label>Rango de año</mat-label>
+    <input type="text" matInput formControlName="rangeYear" appYearRange maxlength="9" />
+  </mat-form-field>
+  <button
+    mat-flat-button
+    color="primary"
+    class="form__button"
+    [disabled]="movieForm.invalid"
+    (click)="searchMovie()"
+  >
+    Search Movie
+  </button>
+</div>

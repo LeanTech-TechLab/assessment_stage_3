@@ -1,0 +1,10 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Favorite food</mat-label>
+    <mat-select [formControl]="typeForm">
+      <mat-option *ngFor="let type of types" [value]="type.value">
+        {{type.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,0 +1,25 @@
+<div class="dashboard">
+  <h2>
+    Search movies, episodes and series
+  </h2>
+  <div class="dashboard__form">
+    <app-form-movies
+      [searching]="searchingMovie"
+      (searchMovieEmitter)="searchMovie($event)"
+    ></app-form-movies>
+  </div>
+  <div class="dashboard__container">
+    <div class="dashboard__table" *ngIf="hasResults()">
+      <app-movies-table
+        [movieList]="movieList"
+        (selectMovieEmitter)="selectedMovie($event)"
+      ></app-movies-table>
+    </div>
+    <div class="dashboard__favorites" *ngIf="hasFavoriteShow()">
+      <app-favorite-shows
+        [favorites]="favoriteShows"
+        (removeFavoriteEmitter)="removeFavorite($event)"
+      ></app-favorite-shows>
+    </div>
+  </div>
+</div>
