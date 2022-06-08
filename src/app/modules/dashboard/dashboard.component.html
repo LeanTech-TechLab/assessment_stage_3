@@ -1,7 +1,5 @@
 <div class="dashboard">
-  <h2>
-    Search movies, episodes and series
-  </h2>
+  <h2>Search movies, episodes and series</h2>
   <div class="dashboard__form">
     <app-form-movies
       [searching]="searchingMovie"
@@ -13,6 +11,7 @@
       <app-movies-table
         [movieList]="movieList"
         (selectMovieEmitter)="selectedMovie($event)"
+        (selectedOptionFatherEmitter)="selectedOption($event)"
       ></app-movies-table>
     </div>
     <div class="dashboard__favorites" *ngIf="hasFavoriteShow()">

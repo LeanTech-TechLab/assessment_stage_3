@@ -3,7 +3,7 @@ export interface MovieListResponse {
   data: {
     results: MovieInterface[];
     totalResults: string;
-  }
+  };
 }
 
 export interface MovieInfoInterface {

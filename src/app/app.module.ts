@@ -9,6 +9,10 @@ import { LoginLayoutModule } from "./layouts/login-layout/login-layout.module";
 import { MainLayoutModule } from "./layouts/main-layout/main-layout.module";
 import { AuthGuard } from "@app-core/auth-guard/auth.guard";
 import { AuthenticationService } from "@app-core/authentication/authentication.service";
+import { StoreModule } from "@ngrx/store";
+import { reducers } from "@app-core/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -19,6 +23,11 @@ import { AuthenticationService } from "@app-core/authentication/authentication.s
     MainLayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot(reducers, {}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.PRODUCTION,
+    }),
   ],
   providers: [AuthenticationService, AuthGuard],
   bootstrap: [AppComponent],

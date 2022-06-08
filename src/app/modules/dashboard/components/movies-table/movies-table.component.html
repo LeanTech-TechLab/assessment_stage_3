@@ -1,4 +1,7 @@
 <div class="form">
+  <div>
+    <app-filters (selectedOptionEmitter)="selectedOption($event)"></app-filters>
+  </div>
   <form [formGroup]="movieForm">
     <div
       formArrayName="movies"
@@ -6,7 +9,11 @@
     >
       <div [formGroupName]="i" class="form__show-information">
         <div class="form__poster">
-          <img class="form__image-poster" [src]="movie.get('poster').value" alt="">
+          <img
+            class="form__image-poster"
+            [src]="movie.get('poster').value"
+            alt=""
+          />
         </div>
         <mat-form-field class="form__input" appearance="legacy">
           <mat-label>Title</mat-label>

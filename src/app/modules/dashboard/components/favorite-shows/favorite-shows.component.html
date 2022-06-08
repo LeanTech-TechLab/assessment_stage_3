@@ -1,24 +1,12 @@
 <div class="favorites">
   <h2>Favorites Show</h2>
   <div class="favorites__headers">
-    <div class="favorites__header">
-      Title
-    </div>
-    <div class="favorites__header">
-      Type
-    </div>
-    <div class="favorites__header">
-      Year
-    </div>
-    <div class="favorites__header">
-      Date
-    </div>
-    <div class="favorites__header">
-      Comment
-    </div>
-    <div class="favorites__header">
-      Action
-    </div>
+    <div class="favorites__header">Title</div>
+    <div class="favorites__header">Type</div>
+    <div class="favorites__header">Year</div>
+    <div class="favorites__header">Date</div>
+    <div class="favorites__header">Comment</div>
+    <div class="favorites__header">Action</div>
   </div>
   <div class="favorites__show" *ngFor="let show of favorites; let i = index">
     <div class="favorites__row">
@@ -31,13 +19,15 @@
       {{ show.year }}
     </div>
     <div class="favorites__row">
-      {{ show.selectedDate | date: 'hh:mm:ss' }}
+      {{ show.selectedDate | date: "hh:mm:ss" }}
     </div>
     <div class="favorites__row">
       {{ show.comment }}
     </div>
     <div class="favorites__row">
-      <mat-icon class="favorites__delete" (click)="removeFavorite(i)">delete</mat-icon>
+      <mat-icon class="favorites__delete" (click)="removeFavorite(i)"
+        >delete</mat-icon
+      >
     </div>
   </div>
 </div>

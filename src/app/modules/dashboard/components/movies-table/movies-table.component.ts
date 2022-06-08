@@ -21,6 +21,7 @@ export class MoviesTableComponent implements OnInit, OnChanges {
   movieForm: FormGroup;
   @Input() movieList: MovieInterface[];
   @Output() selectMovieEmitter = new EventEmitter<MovieInterface>();
+  @Output() selectedOptionFatherEmitter = new EventEmitter<string>();
   constructor(private fb: FormBuilder) {
     this.dataSource = [];
     this.movieList = [];
@@ -44,7 +45,7 @@ export class MoviesTableComponent implements OnInit, OnChanges {
       title: [movieData.title],
       type: [movieData.type],
       year: [movieData.year],
-      comment: [''],
+      comment: [""],
     });
   }
 
@@ -58,7 +59,15 @@ export class MoviesTableComponent implements OnInit, OnChanges {
   }
 
   addToFavorite(index: number) {
-    const payload = Object.assign(this.getMovieList.at(index).value, {selectedDate: new Date(), favorite: true});
+    const payload = Object.assign(this.getMovieList.at(index).value, {
+      selectedDate: new Date(),
+      favorite: true,
+    });
     this.selectMovieEmitter.emit(payload);
+  }
+
+  selectedOption(data: string) {
+    console.log("data", data);
+    this.selectedOptionFatherEmitter.emit(data);
   }
 }

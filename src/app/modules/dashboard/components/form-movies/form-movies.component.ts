@@ -15,7 +15,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   styleUrls: ["./form-movies.component.scss"],
 })
 export class FormMoviesComponent implements OnChanges, OnInit {
-
   @Input() searching: boolean;
   @Output() searchMovieEmitter = new EventEmitter<string>();
   movieForm: FormGroup;
@@ -23,12 +22,12 @@ export class FormMoviesComponent implements OnChanges, OnInit {
 
   constructor(private fb: FormBuilder) {
     this.movieForm = this.fb.group({
-      type: ['', Validators.required],
-      name: ['', Validators.required],
-      rangeYear: [{value: '', disabled: true}]
+      type: ["", Validators.required],
+      name: ["", Validators.required],
+      rangeYear: [{ value: "", disabled: true }],
     });
     this.searching = false;
-    this.showType = ['movies', 'series', 'episodes'];
+    this.showType = ["movies", "series", "episodes"];
   }
 
   get getType() {
@@ -56,16 +55,20 @@ export class FormMoviesComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.getType.valueChanges.subscribe((result) => {
-      console.log('getType', result);
-      if (result === 'series') {
+      console.log("getType", result);
+      if (result === "series") {
         this.getRangeYear.enable();
-        this.getRangeYear.setValidators([Validators.required, Validators.maxLength(9), Validators.pattern(/[^0-9]*/g)])
+        this.getRangeYear.setValidators([
+          Validators.required,
+          Validators.maxLength(9),
+          Validators.pattern(/[^0-9]*/g),
+        ]);
       } else {
-        this.getRangeYear.setValue('')
+        this.getRangeYear.setValue("");
         this.getRangeYear.clearValidators();
         this.getRangeYear.disable();
       }
       this.getRangeYear.updateValueAndValidity();
-    })
+    });
   }
 }

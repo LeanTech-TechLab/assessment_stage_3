@@ -1,10 +1,9 @@
-import {Directive, ElementRef, HostListener} from '@angular/core';
+import { Directive, ElementRef, HostListener } from "@angular/core";
 
 @Directive({
-  selector: '[appYearRange]'
+  selector: "[appYearRange]",
 })
 export class YearRangeDirective {
-
   constructor(private el: ElementRef) {}
 
   // @ts-ignore
@@ -32,5 +31,4 @@ export class YearRangeDirective {
     }
     return response;
   }
-
 }

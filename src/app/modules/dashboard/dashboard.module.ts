@@ -9,7 +9,7 @@ import { FavoriteShowsComponent } from "./components/favorite-shows/favorite-sho
 import { ReactiveFormsModule } from "@angular/forms";
 import { PipesModule } from "@shared/pipes/pipes.module";
 import { DirectivesModule } from "@shared/directives/directives.module";
-import { FiltersComponent } from './components/movies-table/filters/filters.component';
+import { FiltersComponent } from "./components/movies-table/components/filters/filters/filters.component";
 
 @NgModule({
   declarations: [

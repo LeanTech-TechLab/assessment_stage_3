@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { MoviesService } from "@app-services/movies.service";
 import { MovieInterface, MovieListResponse } from "@app-models/movie.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "@app-core/store/models/app.model";
 
 @Component({
   selector: "app-dashboard",
@@ -14,7 +16,10 @@ export class DashboardComponent {
   selectedColor: string;
   today: Date;
   data: any;
-  constructor(private moviesService: MoviesService) {
+  constructor(
+    private moviesService: MoviesService,
+    private store: Store<AppState>
+  ) {
     this.movieList = [];
     this.favoriteShows = [];
     this.selectedColor = "orange";
@@ -29,6 +34,9 @@ export class DashboardComponent {
         type: "Movie",
       },
     ];
+    this.store.select("filters").subscribe((result) => {
+      console.log("obteniendo datos por ngrx", result);
+    });
   }
 
   searchMovie(movieTitle: string) {
@@ -36,7 +44,7 @@ export class DashboardComponent {
     this.moviesService.getMovieList(movieTitle).subscribe(
       (result: MovieListResponse) => {
         console.log("result", result);
-        if (result.error) {
+        if (!result.error) {
           this.movieList = result.data.results;
         } else {
           alert("too many results, write more!");
@@ -48,9 +56,9 @@ export class DashboardComponent {
   }
 
   selectedMovie(selectedMovie: MovieInterface) {
-    console.log('selectedMovie', selectedMovie);
+    console.log("selectedMovie", selectedMovie);
     this.favoriteShows.push(selectedMovie);
-    console.log('this.favoriteShows', this.favoriteShows);
+    console.log("this.favoriteShows", this.favoriteShows);
   }
 
   removeFavorite(index: number) {
@@ -63,5 +71,9 @@ export class DashboardComponent {
 
   hasFavoriteShow() {
     return this.favoriteShows.length > 0;
+  }
+
+  selectedOption(data: string) {
+    console.log("data obtenida por el abuelo", data);
   }
 }
