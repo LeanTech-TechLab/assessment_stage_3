@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component } from "@angular/core";
 import { MovieInterface } from "@app-models/movie.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "@app-core/store/models/app.model";
+import { removeFavorite } from "@app-core/store/actions/favorites.action";
 
 @Component({
   selector: "app-favorite-shows",
@@ -14,13 +17,14 @@ export class FavoriteShowsComponent {
     "selectedDate",
     "comment",
   ];
-  @Input() favorites: MovieInterface[];
-  @Output() removeFavoriteEmitter = new EventEmitter<number>();
-  constructor() {
-    this.favorites = [];
+  favorites: MovieInterface[];
+  constructor(private store: Store<AppState>) {
+    this.store.select("favorites").subscribe((result) => {
+      this.favorites = result.favoriteList;
+    });
   }
 
-  removeFavorite(index: number) {
-    this.removeFavoriteEmitter.emit(index);
+  removeFavorite(id: number) {
+    this.store.dispatch(removeFavorite({ id }));
   }
 }

@@ -2,7 +2,7 @@ export interface MovieListResponse {
   error: boolean;
   data: {
     results: MovieInterface[];
-    totalResults: string;
+    totalResults: number;
   };
 }
 

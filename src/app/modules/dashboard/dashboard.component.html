@@ -9,16 +9,11 @@
   <div class="dashboard__container">
     <div class="dashboard__table" *ngIf="hasResults()">
       <app-movies-table
-        [movieList]="movieList"
-        (selectMovieEmitter)="selectedMovie($event)"
         (selectedOptionFatherEmitter)="selectedOption($event)"
       ></app-movies-table>
     </div>
-    <div class="dashboard__favorites" *ngIf="hasFavoriteShow()">
-      <app-favorite-shows
-        [favorites]="favoriteShows"
-        (removeFavoriteEmitter)="removeFavorite($event)"
-      ></app-favorite-shows>
+    <div class="dashboard__favorites">
+      <app-favorite-shows></app-favorite-shows>
     </div>
   </div>
 </div>

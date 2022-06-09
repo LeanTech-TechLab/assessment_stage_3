@@ -33,7 +33,6 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.typeForm.valueChanges.subscribe((result) => {
-      // this.selectedOptionEmitter.emit(result);
       this.store.dispatch(setFilters({ selectedOption: result }));
     });
   }

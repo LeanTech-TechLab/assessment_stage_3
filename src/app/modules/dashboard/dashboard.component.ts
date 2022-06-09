@@ -3,6 +3,7 @@ import { MoviesService } from "@app-services/movies.service";
 import { MovieInterface, MovieListResponse } from "@app-models/movie.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "@app-core/store/models/app.model";
+import { storeMovieList } from "@app-core/store/actions/movie-list.action";
 
 @Component({
   selector: "app-dashboard",
@@ -10,7 +11,7 @@ import { AppState } from "@app-core/store/models/app.model";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent {
-  movieList: MovieInterface[];
+  totalResults: number;
   favoriteShows: MovieInterface[];
   searchingMovie = false;
   selectedColor: string;
@@ -20,7 +21,7 @@ export class DashboardComponent {
     private moviesService: MoviesService,
     private store: Store<AppState>
   ) {
-    this.movieList = [];
+    this.totalResults = 0;
     this.favoriteShows = [];
     this.selectedColor = "orange";
     this.today = new Date();
@@ -40,25 +41,24 @@ export class DashboardComponent {
   }
 
   searchMovie(movieTitle: string) {
-    // this.searchingMovie = true;
     this.moviesService.getMovieList(movieTitle).subscribe(
       (result: MovieListResponse) => {
-        console.log("result", result);
-        if (!result.error) {
-          this.movieList = result.data.results;
-        } else {
+        if (result.error) {
           alert("too many results, write more!");
+        } else {
+          const { results, totalResults } = result.data;
+          this.totalResults = totalResults;
+          this.store.dispatch(
+            storeMovieList({ movieList: results, totalResults: totalResults })
+          );
         }
-        // this.searchingMovie = false;
       },
       () => (this.searchingMovie = false)
     );
   }
 
   selectedMovie(selectedMovie: MovieInterface) {
-    console.log("selectedMovie", selectedMovie);
     this.favoriteShows.push(selectedMovie);
-    console.log("this.favoriteShows", this.favoriteShows);
   }
 
   removeFavorite(index: number) {
@@ -66,11 +66,7 @@ export class DashboardComponent {
   }
 
   hasResults() {
-    return this.movieList.length > 0;
-  }
-
-  hasFavoriteShow() {
-    return this.favoriteShows.length > 0;
+    return this.totalResults > 0;
   }
 
   selectedOption(data: string) {

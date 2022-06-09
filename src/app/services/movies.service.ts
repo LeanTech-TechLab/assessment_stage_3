@@ -34,7 +34,7 @@ export class MoviesService {
           error: data.Response !== "True",
           data: {
             results: results,
-            totalResults: "",
+            totalResults: data.totalResults,
           },
         };
       })
