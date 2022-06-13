@@ -4,6 +4,11 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { AppState } from "@app-core/store/models/app.model";
 import { Store } from "@ngrx/store";
 import { addFavorite } from "@app-core/store/actions/favorites.action";
+import {
+  getMovieById,
+  getMovieList,
+  getTotalResults,
+} from "@app-core/store/selectors/movie-list.selector";
 
 @Component({
   selector: "app-movies-table",
@@ -14,17 +19,24 @@ export class MoviesTableComponent {
   displayedColumns: string[] = ["Title", "Type", "Year", "Action"];
   dataSource: MovieInterface[];
   movieForm: FormGroup;
+  selectedNumber: number;
   @Output() selectedOptionFatherEmitter = new EventEmitter<string>();
   constructor(private fb: FormBuilder, private store: Store<AppState>) {
+    this.selectedNumber = 0;
     this.dataSource = [];
     this.movieForm = this.fb.group({
       movies: this.fb.array([]),
     });
-    this.store.select("movieData").subscribe((result) => {
-      this.dataSource = result.movieList;
+    this.store.select(getMovieList).subscribe((result: MovieInterface[]) => {
+      this.dataSource = result;
+      this.getMovieList.clear();
       this.dataSource.forEach((element) => {
         this.getMovieList.push(this.addMovie(element));
       });
+    });
+
+    this.store.select(getTotalResults).subscribe((result: number) => {
+      console.log("totalResult", result);
     });
   }
 
@@ -53,5 +65,14 @@ export class MoviesTableComponent {
 
   selectedOption(data: string) {
     this.selectedOptionFatherEmitter.emit(data);
+  }
+
+  setValue() {
+    this.selectedNumber = Math.floor(Math.random() * 9);
+    this.store
+      .select(getMovieById({ id: this.selectedNumber }))
+      .subscribe((result: MovieInterface) => {
+        console.log("getMovieById", result);
+      });
   }
 }

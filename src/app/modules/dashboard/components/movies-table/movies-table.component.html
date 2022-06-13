@@ -2,6 +2,11 @@
   <div>
     <app-filters (selectedOptionEmitter)="selectedOption($event)"></app-filters>
   </div>
+  <div>
+    <button mat-flat-button color="primary" (click)="setValue()">
+      Set Value
+    </button>
+  </div>
   <form [formGroup]="movieForm">
     <div
       formArrayName="movies"

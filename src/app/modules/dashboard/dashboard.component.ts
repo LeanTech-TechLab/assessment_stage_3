@@ -4,13 +4,15 @@ import { MovieInterface, MovieListResponse } from "@app-models/movie.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "@app-core/store/models/app.model";
 import { storeMovieList } from "@app-core/store/actions/movie-list.action";
+import { IDeactivateComponent } from "@app-models/deactivateComponent.model";
+import { getFavoriteList } from "@app-core/store/selectors/favorites.selector";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
-export class DashboardComponent {
+export class DashboardComponent implements IDeactivateComponent {
   totalResults: number;
   favoriteShows: MovieInterface[];
   searchingMovie = false;
@@ -37,6 +39,10 @@ export class DashboardComponent {
     ];
     this.store.select("filters").subscribe((result) => {
       console.log("obteniendo datos por ngrx", result);
+    });
+    this.store.select(getFavoriteList).subscribe((result: MovieInterface[]) => {
+      this.favoriteShows = result;
+      console.log("this.favoriteShows", this.favoriteShows);
     });
   }
 
@@ -69,7 +75,21 @@ export class DashboardComponent {
     return this.totalResults > 0;
   }
 
+  hasFavoriteShow() {
+    return this.favoriteShows.length > 0;
+  }
+
   selectedOption(data: string) {
     console.log("data obtenida por el abuelo", data);
+  }
+
+  public canExit(): boolean {
+    if (!this.hasFavoriteShow()) {
+      alert(
+        "No tienes show favoritos agregados, no se puede salir de la página."
+      );
+      return false;
+    }
+    return true;
   }
 }

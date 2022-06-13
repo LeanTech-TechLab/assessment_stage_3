@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path: "",
     component: MainLayoutComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: "",
@@ -21,6 +20,13 @@ const routes: Routes = [
           import("../../modules/dashboard/dashboard.module").then(
             (m) => m.DashboardModule
           ),
+      },
+      {
+        path: "page2",
+        pathMatch: "full",
+        loadChildren: () =>
+          import("../../modules/page2/page2.module").then((m) => m.Page2Module),
+        canActivate: [AuthGuard],
       },
     ],
   },
