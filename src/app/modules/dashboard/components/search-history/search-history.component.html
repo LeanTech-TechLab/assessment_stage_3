@@ -1,0 +1,6 @@
+<div *ngFor="let history of historyList">
+  <div>Type: {{ history.type }}</div>
+  <div>Name: {{ history.name }}</div>
+  <div>Range Years: {{ history.rangeYear }}</div>
+  <div>Search Date: {{ history.searchDate | date: "hh:mm:ss" }}</div>
+</div>

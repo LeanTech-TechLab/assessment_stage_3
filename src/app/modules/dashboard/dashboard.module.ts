@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { PipesModule } from "@shared/pipes/pipes.module";
 import { DirectivesModule } from "@shared/directives/directives.module";
 import { FiltersComponent } from "./components/movies-table/components/filters/filters/filters.component";
+import { SearchHistoryComponent } from "./components/search-history/search-history.component";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FiltersComponent } from "./components/movies-table/components/filters/f
     FormMoviesComponent,
     FavoriteShowsComponent,
     FiltersComponent,
+    SearchHistoryComponent,
   ],
   imports: [
     CommonModule,

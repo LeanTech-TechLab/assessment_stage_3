@@ -8,6 +8,8 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Store } from "@ngrx/store";
+import { storeSearch } from "@app-core/store/actions/search.action";
 
 @Component({
   selector: "app-form-movies",
@@ -20,7 +22,7 @@ export class FormMoviesComponent implements OnChanges, OnInit {
   movieForm: FormGroup;
   showType: string[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.movieForm = this.fb.group({
       type: ["", Validators.required],
       name: ["", Validators.required],
@@ -43,6 +45,10 @@ export class FormMoviesComponent implements OnChanges, OnInit {
   }
 
   searchMovie() {
+    const payload = Object.assign(this.movieForm.getRawValue(), {
+      searchDate: new Date(),
+    });
+    this.store.dispatch(storeSearch({ searchPayload: payload }));
     this.searchMovieEmitter.emit(this.getName.value);
   }
 

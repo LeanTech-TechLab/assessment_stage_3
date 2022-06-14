@@ -71,6 +71,7 @@ export class MoviesTableComponent {
     this.selectedNumber = Math.floor(Math.random() * 9);
     this.store
       .select(getMovieById({ id: this.selectedNumber }))
+      // eslint-disable-next-line ngrx/no-store-subscription
       .subscribe((result: MovieInterface) => {
         console.log("getMovieById", result);
       });

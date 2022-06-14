@@ -12,6 +12,8 @@
     flex: 50;
   }
   .dashboard__favorites {
+    display: flex;
+    flex-direction: column;
     flex: 50;
   }
 }
